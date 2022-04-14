@@ -67,14 +67,22 @@ router.route('/login').post((async (req, res) => {
 
             //if email and password is matched then token will be generated
             //generate token function is in userSchema file
-            
-            const token = await user.generateToken()
-            console.log("token : ", token)
 
+            
             if (!isMatch) {
                 res.status(400).send("Invalid Credentials")
             }
             else {
+                const token = await user.generateToken()
+                console.log("token : ", token)
+
+                //saving token in cookies
+                res.cookie("token", token, {
+                    httpOnly: true,
+                    maxAge: 300000,
+                    // expires: new Date(Date.now + 300000)
+                });
+
                 res.send("user loggined successfully")
             }
         }
