@@ -25,7 +25,7 @@ app.use(express.json()); // to accept json data
 
 
 
-app.use('/', auth)
+app.use('/api/v1', auth)
 
 
 
