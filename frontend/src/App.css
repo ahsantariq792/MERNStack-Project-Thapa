@@ -1,38 +1,90 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+*{
+  font-family: 'Josefin Sans', cursive;
+
+}
+
+.container {
+  overflow: hidden;
+}
+
+.d-flex1 {
+  display: flex;
+}
+
+.nav-link {
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+
+.navbar-brand{
+  font-weight: bold;
+  padding-right: 20px;
+  margin: 0% 8% ;
+  border-right-style: solid;
+}
+.input_field {
+  margin: 1%;
+  width: 75%;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid grey;
+}
+
+.text_box {
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.contact_form_title {
+  margin-left: 2%;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.error_page {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; */
+  margin: 10% auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.homepage {
+  background: linear-gradient(90deg, rgb(127, 127, 131) 50%, rgba(255, 255, 255, 1) 100%);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+
+.homepage_head {
+  letter-spacing: 2px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.homepage_text {
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+
+.error {
+  position: absolute;
+  color: red;
+  font-size: .6rem;
 }
