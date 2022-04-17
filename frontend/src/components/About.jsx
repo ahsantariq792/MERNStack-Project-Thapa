@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -6,13 +7,51 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { baseurl } from '../Core';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
+
 
 function About() {
     const [value, setValue] = React.useState('1');
+    const [user, setUser] = useState()
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const navigate = useNavigate()
+
+    const aboutPage = async () => {
+        try {
+            const res = await axios.get(`${baseurl}/api/v1/about`, {
+                withCredentials: "true"
+            })
+
+                .then((res) => {
+                    // const data = await res.json();
+                    console.log(res)
+                    setUser(res.data) //response contains many things but we need only data (in body)
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    navigate("/login")
+
+                })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    useEffect(() => {
+        aboutPage()
+    }, [])
+
 
     return (
         <>
@@ -47,13 +86,13 @@ function About() {
                             <div className="profile_head">
                                 <div className='d-flex justify-content-between'>
                                     <div>
-                                        <h5>ahsan</h5>
+                                        <h5>{user?.name}</h5>
                                         <h6>Freelancer</h6>
                                         <p>RANKINGS <span>1/10:</span></p>
                                     </div>
                                     <div>
                                         <div className="col-md-2">
-                                            <Button type="submit" variant="contained" color="primary"><EditIcon/>Profile</Button>
+                                            <Button type="submit" variant="contained" color="primary"><EditIcon />Profile</Button>
                                         </div>
                                     </div>
                                 </div>

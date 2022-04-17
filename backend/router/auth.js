@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const SECRET = process.env.SECRET || "ahsan12345678"
+const Authenticate = require("../middleware/Authenticate");
+
 
 router.route("/").get(async (req, res) => {
     res.send("Hello world Router")
@@ -59,20 +59,20 @@ router.route('/login').post((async (req, res) => {
         }
 
         const user = await User.findOne({ email });
-        
+
         //condition if user is registered
-        if (!user){
+        if (!user) {
             res.send("User not Found")
-            
+
         }
-        else{
+        else {
 
             //matching password
             const isMatch = await bcrypt.compare(password, user.password)
 
             //if email and password is matched then token will be generated
             //generate token function is in userSchema file
-            
+
             if (!isMatch) {
                 res.send("Invalid Credentials")
             }
@@ -88,11 +88,17 @@ router.route('/login').post((async (req, res) => {
                 res.send("user loggined successfully")
             }
         }
-        
+
     }
     catch (err) {
         res.send("Error in Login")
     }
 }))
+
+router.get('/about', Authenticate,(req,res)=>{
+    console.log("About Page");  
+    res.send(req.rootUser); 
+                    
+})
 
 module.exports = router
