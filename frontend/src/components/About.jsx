@@ -38,8 +38,7 @@ function About() {
                 })
                 .catch((err) => {
                     console.log(err)
-                    navigate("/login")
-
+                    navigate("/login") //if token not found then redirect back to login page and about route is not allowed
                 })
         }
         catch (err) {

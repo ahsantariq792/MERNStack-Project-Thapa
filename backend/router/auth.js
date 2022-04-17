@@ -97,7 +97,7 @@ router.route('/login').post((async (req, res) => {
 
 router.get('/about', Authenticate,(req,res)=>{
     console.log("About Page");  
-    res.send(req.rootUser); 
+    res.send(req.rootUser);   // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
                     
 })
 
