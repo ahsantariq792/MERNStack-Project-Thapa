@@ -70,6 +70,13 @@ userSchema.methods.generateToken = async function () {
 
         //saving token in database
         await this.save()
+
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     maxAge: 300000,
+        //     // expires: new Date(Date.now + 300000)
+        // });
+
         return token
     }
     catch (err) {

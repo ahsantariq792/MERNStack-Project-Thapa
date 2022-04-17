@@ -1,7 +1,7 @@
 import express from 'express'
 import connectDB from './config/db.js';
 // import mongoose from "mongoose"
-// import cors from "cors"
+import cors from "cors"
 // import path from "path";
 // import { createServer } from "http";
 // import { Server } from "socket.io";
@@ -9,20 +9,23 @@ import connectDB from './config/db.js';
 // import { response } from 'express';
 // const __dirname = path.resolve();
 import dotenv from "dotenv"
-// dotenv.config({ path: './config.env' })
-
 import auth from './router/auth.js'
-import User from "./models/userSchema.js"
+import cookieParser from 'cookie-parser';
 
 
 const PORT = process.env.PORT || 5000
 const app = express()
+app.use(cookieParser())
 
 dotenv.config();
 connectDB();
 
 app.use(express.json()); // to accept json data
 
+app.use(cors({
+    origin: ["http://localhost:3000", "http://localhost:5000"],
+    credentials: true
+}))
 
 
 app.use('/api/v1', auth)

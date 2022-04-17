@@ -4,19 +4,38 @@ import { Formik, Form } from 'formik'
 import { TextField } from './TextField'
 import * as yup from 'yup'
 import signupPic from "../images/tom_and_jerry.png"
-
-
-const submit = (values, { resetForm }) => {
-    console.log("values", values)
-    alert('User Signed in')
-    resetForm({})
-}
-
-
-
+import { baseurl } from "../Core"
+import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 
 const Signup = () => {
+
+    let navigate = useNavigate();
+
+    const submit = async (values, { resetForm }) => {
+
+        resetForm({})
+
+        const { email, name, password, cpassword, phone } = values
+
+        const res = await axios.post(`${baseurl}/api/v1/signup`,
+            {
+                email, name, phone, password, cpassword
+            }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if (!res) {
+            console.log("Invalid registration");
+        } else {
+            console.log("registration completed");
+            navigate("/login")
+
+        }
+    }
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validate = yup.object({
@@ -28,20 +47,20 @@ const Signup = () => {
             .string('Enter your password')
             .min(3, 'Name should be of minimum 4 characters length')
             .required('Name is required'),
-
         phone: yup
             .string('Enter your phone no.')
             .matches(phoneRegExp, 'Phone number is not valid')
             .min(11, 'Phone should contain 11 digits')
             .max(11, 'Phone should contain 11 digits')
             .required('phone number is required'),
-
         password: yup
             .string('Enter your password')
             .min(8, 'Password should be of minimum 8 characters length')
             .required('Password is required'),
-
-
+        cpassword: yup
+            .string('Enter your password')
+            .min(8, 'Password should be of minimum 8 characters length')
+            .required('Password is required'),
     })
 
 
@@ -55,11 +74,11 @@ const Signup = () => {
                 <div className="col-md-5">
                     <Formik
                         initialValues={{
-                            name: '',
-                            phone: '',
-                            email: '',
-                            password: '',
-                            cpassword: '',
+                            name: 'Ahsan',
+                            phone: '35346069657',
+                            email: 'ahsan1244@gmail.com',
+                            password: '12345678',
+                            cpassword: '12345678',
                             picture: ''
 
                         }}
@@ -85,7 +104,7 @@ const Signup = () => {
                     </Formik>
                 </div>
                 <div className="col-md-7 my-auto">
-                    <img className="img-fluid w-100" style={{ height: "500px" }}  src={signupPic} alt="image"></img>
+                    <img className="img-fluid w-100" style={{ height: "500px" }} src={signupPic} alt="image"></img>
                 </div>
             </div>
 

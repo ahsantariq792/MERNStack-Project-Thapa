@@ -1,10 +1,14 @@
 import '../App.css';
 import React from 'react';
-import { useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
 import loginPic from "../images/doraemon.png"
+import { useNavigate } from 'react-router-dom'
+import { baseurl } from "../Core"
+import axios from 'axios';
+
 
 const validationSchema = yup.object({
     email: yup
@@ -24,16 +28,33 @@ const validationSchema = yup.object({
 
 function Login() {
 
-    const submit = (values) => {
-        console.log("values", values)
+    let navigate = useNavigate();
+
+    const submit = async (values, { resetForm }) => {
+        console.log("values:", values)
+        resetForm({})
+
+        const { email, password } = values
+
+        const res = await axios.post(`${baseurl}/api/v1/login`, {
+            email, password
+        }, {
+            withCredentials: true
+          })
+
+        if (!res) {
+            console.log("Invalid Credentials");
+        } else {
+            console.log("registration completed");
+            navigate("/")
+        }
     }
 
     const formik = useFormik({
         validationSchema: validationSchema,
         initialValues: {
-            email: '',
-            password: '',
-
+            email: 'ahsan12345@gmail.com',
+            password: '12345678',
         },
         onSubmit: submit
     },
