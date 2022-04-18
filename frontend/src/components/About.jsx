@@ -26,7 +26,7 @@ function About() {
 
     const aboutPage = async () => {
         try {
-            const res = await axios.get(`${baseurl}/api/v1/about`, {
+            const res = await axios.get(`${baseurl}/api/v1/getData`, {
                 withCredentials: "true"
             })
 
@@ -49,6 +49,9 @@ function About() {
 
     useEffect(() => {
         aboutPage()
+        return () => {
+            console.log("cleanup")
+        }
     }, [])
 
 

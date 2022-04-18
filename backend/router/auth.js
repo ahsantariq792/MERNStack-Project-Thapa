@@ -95,20 +95,17 @@ router.route('/login').post((async (req, res) => {
     }
 }))
 
-router.get('/about', Authenticate, (req, res) => {
-    console.log("About Page");
-    res.send(req.rootUser);
-    // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
 
-})
 
+//route to get user data used in about contact and home page
 router.get('/getData', Authenticate, (req, res) => {
-    // console.log("Contact Page");  
     res.send(req.rootUser);
     // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
 
 })
 
+
+//contact route to send message
 router.post('/contact', Authenticate, async (req, res) => {
 
     try {
@@ -132,6 +129,22 @@ router.post('/contact', Authenticate, async (req, res) => {
     } catch (err) {
         console.log(err)
     }
+})
+
+
+
+//logout
+router.get('/logout', (req, res) => {
+    res.clearCookie('token', {path: "/"})
+
+
+    //another method to clear cookie
+    // res.cookie("token", "" , {
+    //     httpOnly: true,
+    // });
+
+    
+    res.send("user logout")
 })
 
 module.exports = router

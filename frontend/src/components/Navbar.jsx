@@ -1,8 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "../App.css"
-
+import axios from 'axios'
+import { baseurl } from '../Core'
+import { useNavigate } from 'react-router-dom'
 function Navbar() {
+
+    const navigate = useNavigate()
+
+
+    const logout = () => {
+        axios.get(`${baseurl}/api/v1/logout`, {
+            withCredentials: true
+        })
+            .then((res) => {
+                console.log("res: ", res.data)
+                navigate("/login")
+            })
+    }
+
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,10 +60,11 @@ function Navbar() {
                                     <a className="nav-link">Registration</a>
                                 </li>
                             </Link>
-
-                            <li className="nav-item">
-                                <a className="nav-link">Logout</a>
-                            </li>
+                            <Link to="/login" style={{ textDecoration: 'none' }}>
+                                <li className="nav-item">
+                                    <a className="nav-link" onClick={logout}>Logout</a>
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 </div>
