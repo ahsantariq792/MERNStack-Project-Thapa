@@ -85,7 +85,12 @@ router.route('/login').post((async (req, res) => {
                     maxAge: 300000,
                     // expires: new Date(Date.now + 300000)
                 });
-                res.send("user loggined successfully")
+                // res.send("user loggined successfully")
+                res.send({
+                    name: user.name,
+                    email: user.email,
+                    _id: user._id,
+                });
             }
         }
 
@@ -143,7 +148,7 @@ router.get('/logout', (req, res) => {
     //     httpOnly: true,
     // });
 
-    
+
     res.send("user logout")
 })
 

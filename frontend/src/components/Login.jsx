@@ -8,7 +8,8 @@ import loginPic from "../images/doraemon.png"
 import { useNavigate } from 'react-router-dom'
 import { baseurl } from "../Core"
 import axios from 'axios';
-
+import { GlobalContext } from '../context/Context';
+import { useContext } from "react";
 
 const validationSchema = yup.object({
     email: yup
@@ -29,6 +30,9 @@ const validationSchema = yup.object({
 function Login() {
 
     let navigate = useNavigate();
+    let { state, dispatch } = useContext(GlobalContext);
+
+
 
     const submit = async (values, { resetForm }) => {
         console.log("values:", values)
@@ -40,13 +44,23 @@ function Login() {
             email, password
         }, {
             withCredentials: true
-          })
+        })
 
         if (!res) {
             console.log("Invalid Credentials");
         } else {
             console.log("registration completed");
+            console.log(res)
+            dispatch({
+                type: "USER_LOGIN",
+                payload: {
+                    name: res.data.name,
+                    email: res.data.email,
+                    _id: res.data._id
+                }
+            })
             navigate("/")
+            console.log("name", state.user.name)
         }
     }
 
