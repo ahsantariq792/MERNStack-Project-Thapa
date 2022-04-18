@@ -28,6 +28,33 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        messages: [
+            {
+                name:
+                {
+                    type: String,
+                    required: true
+                },
+                email: {
+                    type: String,
+                    unique: true,
+                    required: true
+                },
+                phone: {
+                    type: Number,
+                    unique: false,
+                    required: true
+                },
+                message: {
+                    type: String,
+                    required: true
+                },
+            }
+        ],
         tokens: [
             {
                 token: {
@@ -57,6 +84,20 @@ userSchema.pre('save', async function (next) {
     next();
 })
 
+//storing message in database
+userSchema.methods.addMessage = async function (name, email, phone, message) {
+    try {
+        this.messages = this.messages.concat({name, email, phone, message})
+        await this.save()
+        console.log("message saved")
+        return this.messages
+    } catch (error) {
+        console.log(err)
+    }
+}
+
+
+
 //jwt token generate function
 userSchema.methods.generateToken = async function () {
     try {
@@ -70,13 +111,6 @@ userSchema.methods.generateToken = async function () {
 
         //saving token in database
         await this.save()
-
-        // res.cookie("token", token, {
-        //     httpOnly: true,
-        //     maxAge: 300000,
-        //     // expires: new Date(Date.now + 300000)
-        // });
-
         return token
     }
     catch (err) {

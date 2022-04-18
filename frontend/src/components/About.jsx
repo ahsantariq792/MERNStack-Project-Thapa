@@ -112,27 +112,27 @@ function About() {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label >
-                                                        <p>12342461</p>
+                                                        <p>{user?._id}</p>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div className="row mt-2">
                                                 <div className="col-md-6">
-                                                    <label>Name</label>
+                                                    <label>Email</label>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label >
-                                                        <p>to have any attribute</p>
+                                                        <p>{user?.email}</p>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div className="row mt-2">
                                                 <div className="col-md-6">
-                                                    <label>Name</label>
+                                                    <label>Phone</label>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label >
-                                                        <p>ayyan</p>
+                                                        <p>{user?.phone}</p>
                                                     </label>
                                                 </div>
                                             </div>
@@ -141,25 +141,25 @@ function About() {
                                                     <label>Profession</label>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <p>dhaba</p>
+                                                    <p>Freelancer</p>
 
                                                 </div>
                                             </div>
                                             <div className="row mt-2">
                                                 <div className="col-md-6">
-                                                    <label>Name</label>
+                                                    <label>Domain</label>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <p>abcd</p>
+                                                    <p>Web Developer</p>
                                                 </div>
 
                                             </div>
                                             <div className="row mt-2">
                                                 <div className="col-md-6">
-                                                    <label>Name</label>
+                                                    <label>Experience</label>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <p>abcd</p>
+                                                    <p>Fresher</p>
                                                 </div>
                                             </div>
                                         </div>

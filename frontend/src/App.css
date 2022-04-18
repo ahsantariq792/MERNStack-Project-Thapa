@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
-*{
+* {
   font-family: 'Josefin Sans', cursive;
 
 }
@@ -20,14 +20,16 @@
 }
 
 
-.navbar-brand{
+.navbar-brand {
   font-weight: bold;
   padding-right: 20px;
-  margin: 0% 8% ;
+  margin: 0% 8%;
   border-right-style: solid;
 }
+
 .input_field {
   margin: 1%;
+  padding: 2%;
   width: 75%;
   height: 40px;
   border-radius: 10px;
@@ -39,7 +41,7 @@
   outline: none;
   border: 1px solid grey;
   border-radius: 20px;
-  padding: 20px;
+  padding: 5%;
 }
 
 .contact_form_title {

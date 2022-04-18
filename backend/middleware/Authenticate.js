@@ -10,12 +10,12 @@ const Authenticate = async (req, res, next) => {
 
         //Verifying token with secret key
         const verifyToken = jwt.verify(token, process.env.SECRET);
-        console.log(verifyToken)
+        // console.log(verifyToken)
 
         //after verification of token we match id of user (from token) and searching it in database
         //if user found we save all he details of user in a rootUser var
         const rootUser = await User.findOne({ _id: verifyToken._id, "tokens.token": token });
-        console.log("rootUser: ", rootUser)
+        // console.log("rootUser: ", rootUser)
         
         
         if (!rootUser) { throw new Error("User Not Found") };

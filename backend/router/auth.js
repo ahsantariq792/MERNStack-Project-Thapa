@@ -95,10 +95,43 @@ router.route('/login').post((async (req, res) => {
     }
 }))
 
-router.get('/about', Authenticate,(req,res)=>{
-    console.log("About Page");  
-    res.send(req.rootUser);   // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
-                    
+router.get('/about', Authenticate, (req, res) => {
+    console.log("About Page");
+    res.send(req.rootUser);
+    // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
+
+})
+
+router.get('/getData', Authenticate, (req, res) => {
+    // console.log("Contact Page");  
+    res.send(req.rootUser);
+    // rootuser contains the whole document (data) of the user we get it from the token (in middleware/authentication)
+
+})
+
+router.post('/contact', Authenticate, async (req, res) => {
+
+    try {
+        console.log("req.body", req.body)
+        const { name, email, phone, message } = req.body;
+
+        if (!name || !email || !phone || !message) {
+            res.status(403).send("required field missing");
+            return;
+        }
+
+        const userContact = await User.findOne({ _id: req.userID })
+        if (userContact) {
+            const userMessage = await userContact.addMessage(name, email, phone, message);
+            await userContact.save();
+            res.status(201).json({ userMessage: "user Contact successfully" });
+        }
+        else {
+            res.json({ userMessage: "user Contact not saved" });
+        }
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 module.exports = router
